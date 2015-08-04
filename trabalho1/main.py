@@ -2,6 +2,7 @@ from sys import argv
 from caesar_cipher import CaesarCipher
 from transposition_cipher import TranspositionCipher
 from vigenere_cipher import VigenereCipher
+from substitution_cipher import SubstitutionCipher
 
 script,from_file,key = argv
 
@@ -18,5 +19,11 @@ script,from_file,key = argv
 # vigenere = VigenereCipher()
 # vigenere.cipher(from_file,key)
 
-vigenere = VigenereCipher()
-vigenere.decipher(from_file,key)
+# vigenere = VigenereCipher()
+# vigenere.decipher(from_file,key)
+
+# substitution = SubstitutionCipher()
+# substitution.cipher(from_file,key)
+
+substitution = SubstitutionCipher()
+substitution.decipher(from_file,key)
