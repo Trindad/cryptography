@@ -68,9 +68,9 @@ class TranspositionCipher(object):
 					it += 1
 				if it < key:
 					while (it < key):
-						matrix[line].append( " " )
+						matrix[line].append(" ")
 						it += 1
-						
+
 				for j in range(0, len(matrix[0])):
 					for i in range(0, len(matrix)):
 						output.write( matrix[i][j] )
