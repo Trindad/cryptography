@@ -8,5 +8,8 @@ script,from_file,key = argv
 # caesar.cipher(from_file,int(key))
 #caesar.decipher(from_file,int(key))
 
+# transposition = TranspositionCipher()
+# transposition.cipher(from_file,int(key))
+
 transposition = TranspositionCipher()
-transposition.cipher(from_file,int(key))
+transposition.decipher(from_file,int(key))
