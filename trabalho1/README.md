@@ -22,6 +22,7 @@ Contendo os seguintes algoritmos: Cifra de Cesar, Cifra de Transposição, Cifra
 >>		cifrar corresponde ao caractere 'c'
 >>		descifrar corresponde ao caractere 'd'
 >>
+>
 >	 *Exemplo*
 >>
 >>		python main.py teste.txt bolo v c
