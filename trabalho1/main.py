@@ -1,15 +1,15 @@
 from sys import argv
-from caesar_cipher import CaesarCipher
-from transposition_cipher import TranspositionCipher
-from vigenere_cipher import VigenereCipher
-from substitution_cipher import SubstitutionCipher
+from caesar import Caesar
+from transposition import Transposition
+from vigenere import Vigenere
+from substitution import Substitution
 
 script,from_file,key,algorithm,option = argv
 
 
 if algorithm == "c":
 
-	caesar = CaesarCipher()
+	caesar = Caesar()
 
 	if option == "c":
 		caesar.cipher(from_file,int(key))
@@ -19,7 +19,7 @@ if algorithm == "c":
 		print "Option doesn't exist."
 elif algorithm == "t":
 
-	transposition = TranspositionCipher()
+	transposition = Transposition()
 
 	if option == "c":
 		transposition.cipher(from_file,int(key))
@@ -29,7 +29,7 @@ elif algorithm == "t":
 		print "Option doesn't exist."
 elif algorithm == "v":
 
-	vigenere = VigenereCipher()
+	vigenere = Vigenere()
 
 	if option == "c":
 		vigenere.cipher(from_file,key)
@@ -37,9 +37,9 @@ elif algorithm == "v":
 		vigenere.decipher(from_file,key)
 	else:
 		print "Option doesn't exist."
-elif algorithm == "v":
+elif algorithm == "s":
 
-	substitution = SubstitutionCipher()
+	substitution = Substitution()
 
 	if option == "c":
 		substitution.cipher(from_file,key)

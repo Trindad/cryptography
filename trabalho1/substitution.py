@@ -1,7 +1,7 @@
 from sys import argv
 from os.path import exists
 
-class SubstitutionCipher(object):
+class Substitution:
 	"""docstring for SubstitutionCipher"""
 	def __init__(self):
 		pass
@@ -28,7 +28,7 @@ class SubstitutionCipher(object):
 		else:
 			print "File not exists"
 		if	exists(file):
-			output = open("substituition_cipher_"+file,'w+b')
+			output = open("substituition_cipher.txt",'w+b')
 			with open(file,'r+b') as f:
 				while 1:
 					read_data = f.read(1)
@@ -61,7 +61,7 @@ class SubstitutionCipher(object):
 		else:
 			print "File not exists"
 		if	exists(file):
-			output = open("substituition_decipher_"+file,'w+b')
+			output = open("substituition_decipher.txt",'w+b')
 			with open(file,'r+b') as f:
 				while 1:
 					read_data = f.read(1)

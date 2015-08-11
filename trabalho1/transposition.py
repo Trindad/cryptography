@@ -1,14 +1,14 @@
 from sys import argv
 from os.path import exists
 
-class TranspositionCipher(object):
+class Transposition:
 	"""docstring for TranspositionCipher"""
 	def __init__(self):
 		pass
 
 	def cipher(self,file,key):
 		if	exists(file):
-			output = open("transposition_cipher_"+file,'w+b')
+			output = open("transposition_cipher.txt",'w+b')
 			it = 0
 			line = 0
 			matrix = [[]]
@@ -43,7 +43,7 @@ class TranspositionCipher(object):
 	def decipher(self,file,key):
 		
 		if	exists(file):
-			output = open("transposition_decipher_"+file,'w+b')
+			output = open("transposition_decipher.txt",'w+b')
 			it = 0
 			line = 0
 			matrix = [[]]

@@ -1,0 +1,4 @@
+*.txt
+arquivos/*
+*.pyc
+testes/*
