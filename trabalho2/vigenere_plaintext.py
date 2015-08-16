@@ -1,6 +1,7 @@
 from collections import Counter
 from sys import argv
 from os.path import exists
+import re
 
 class VigenerePlainText:
 	"""docstring for VigenerePlainText"""
@@ -19,13 +20,5 @@ class VigenerePlainText:
 					if not read_data:
 						break
 					output += chr( (ord(read_enc) - ord(read_data)+256 ) % 256 )
-			self.principal_period(output)
-
-	def check_repeat(self,s):
-	    for i in range(1, len(s)):
-	        substr = s[:i]
-	        ratio = len(s)/len(substr)
-	        if substr * ratio == s:
-	            print 'Repeating on "%s"' % substr
-	            return
-	    print 'Non repeating'
+		r = re.compile(r"(.+?)\1+")
+		print r.findall(output)
