@@ -69,6 +69,6 @@ class Substitution:
 					if not read_data:
 						break
 					output.write( chr( dict[ ord(read_data) ] ) )
-			f.close
+			output.close
 		else:
 			print "File not exists"

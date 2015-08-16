@@ -22,7 +22,7 @@ class Vigenere:
 					it += 1
 					if (it == n):
 						it = 0
-			f.close
+			output.close
 		else:
 			print "File not exists"
 
@@ -42,6 +42,6 @@ class Vigenere:
 					it += 1
 					if (it == n):
 						it = 0
-			f.close
+			output.close
 		else:
 			print "File not exists"

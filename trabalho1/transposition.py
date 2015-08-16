@@ -36,7 +36,7 @@ class Transposition:
 				for i in range(0, len(matrix)):
 					for j in range(0, len(matrix[0])):
 						output.write( chr(matrix[i][j]) )
-				f.close
+				output.close
 		else:
 			print "File not exists"
 
@@ -74,6 +74,8 @@ class Transposition:
 				for j in range(0, len(matrix[0])):
 					for i in range(0, len(matrix)):
 						output.write( matrix[i][j] )
-				f.close
+				output.close
 		else:
 			print "File not exists"
+
+		return "transposition_decipher.txt"
