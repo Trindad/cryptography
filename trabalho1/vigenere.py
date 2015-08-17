@@ -45,3 +45,5 @@ class Vigenere:
 			output.close
 		else:
 			print "File not exists"
+
+		return "vigenere_decipher.txt"

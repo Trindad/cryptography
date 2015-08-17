@@ -72,3 +72,5 @@ class Substitution:
 			output.close
 		else:
 			print "File not exists"
+
+		return "substituition_decipher.txt"

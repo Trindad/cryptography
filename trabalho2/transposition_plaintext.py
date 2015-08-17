@@ -9,8 +9,7 @@ class TranspositionPlainText:
 		pass
 
 	def key(self,text,enc):
-
-		output = open("transposition_key.txt",'w+b')
+		
 		key = 1
 
 		while 1:
