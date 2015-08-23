@@ -3,24 +3,24 @@ from caesar_bruteforce_attack import CaesarBruteForce
 from transposition_bruteforce_attack import TranspositionBruteForce
 from vigenere_bruteforce_attack import VigenereBruteForce
 
-script,text,enc,algorithm = argv
+script,enc,algorithm = argv
 
 if algorithm == "c":
 
-	caesar = CaesarPlainText()
+	caesar = CaesarBruteForce()
 
-	caesar.key(text,enc)
+	caesar.breakOpen(enc)
 
 elif algorithm == "t":
 
-	transposition = TranspositionPlainText()
+	transposition = TranspositionBruteForce()
 
-	transposition.key(text,enc)
+	transposition.breakOpen(enc)
 
 elif algorithm == "v":
 
-	vigenere = VigenerePlainText()
+	vigenere = VigenereBruteForce()
 
-	vigenere.key(text,enc)
+	vigenere.breakOpen(enc)
 else:
 	print "Algorithm doesn't exist."

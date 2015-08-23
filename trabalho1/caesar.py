@@ -31,6 +31,7 @@ class Caesar:
 					if not read_data:
 						break
 					output.write( chr( ( ord(read_data) - key ) % 256 ) )
+				output.flush()
 			f.close
 		else:
 			print "File not exists"
