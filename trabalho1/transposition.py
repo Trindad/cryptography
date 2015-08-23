@@ -74,6 +74,7 @@ class Transposition:
 				for j in range(0, len(matrix[0])):
 					for i in range(0, len(matrix)):
 						output.write( matrix[i][j] )
+				output.flush()
 				output.close
 		else:
 			print "File not exists"

@@ -16,7 +16,7 @@ class CaesarBruteForce(object):
 		key = it
 		words = 0
 
-		while it < 255:
+		while it < 256:
 			
 			caesar = Caesar()
 			file = caesar.decipher(enc,it)
@@ -37,6 +37,7 @@ class CaesarBruteForce(object):
 		for a in words.words():
 			word_list.append(str(a))
 
+		word_list = set(word_list)
 		text = []
 
 		with open(file, "r+b") as f:
@@ -49,12 +50,8 @@ class CaesarBruteForce(object):
 			 	text.append(read_data)
 		
 		text = "".join(text)
-		w = text.split(" ")
+		w = set( text.split(" ") )
 
-		occurencies = 0
-
-		for s in w:
-			if s in word_list:
-				occurencies += 1
+		occurencies = len(word_list & w)
 
 		return occurencies
