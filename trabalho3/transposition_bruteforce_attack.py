@@ -11,13 +11,13 @@ class TranspositionBruteForce(object):
 		pass
 	
 		
-	def breakOpen(self,enc):
+	def breakOpenDic(self,enc):
 
 		it = 1
 		key = it
 		words = 0
 
-		while it < 9:
+		while it < 256:
 			
 			transposition = Transposition()
 			file = transposition.decipher(enc,it)
@@ -30,6 +30,8 @@ class TranspositionBruteForce(object):
 			it += 1
 
 		print key
+
+	
 	
 	def compare(self,file):
 		
