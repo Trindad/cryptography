@@ -6,7 +6,7 @@ path.append("../trabalho1")
 import itertools
 from vigenere import Vigenere
 
-from nltk.corpus import words
+from nltk.corpus import brown
 
 class VigenereBruteForce(object):
 	"""docstring for VigenereBruteForce"""
@@ -22,9 +22,10 @@ class VigenereBruteForce(object):
 
 		for a in words.words():
 			word_list.append(str(a))
-			
-			transposition = Transposition()
-			file = transposition.decipher(enc,a)
+		
+		for a in word_list:	
+			vigenere = Vigenere()
+			file = vigenere.decipher(enc,a)
 
 			n = self.compare(file)
 
@@ -60,7 +61,7 @@ class VigenereBruteForce(object):
 	def compare(self,file):
 		
 		word_list = []
-		for a in words.words():
+		for a in brown.words(fileids=['cc17']):
 			word_list.append(str(a))
 
 		word_list = set(word_list)

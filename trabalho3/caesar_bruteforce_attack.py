@@ -3,7 +3,7 @@ from os.path import exists
 path.append("../trabalho1")
 from caesar import Caesar
 
-from nltk.corpus import words
+from nltk.corpus import brown
 
 class CaesarBruteForce(object):
 	"""docstring for CaesarBruteForce"""
@@ -34,7 +34,7 @@ class CaesarBruteForce(object):
 	def compare(self,file):
 		
 		word_list = []
-		for a in words.words():
+		for a in brown.words(fileids=['cc17','ca16']):
 			word_list.append(str(a))
 
 		word_list = set(word_list)
