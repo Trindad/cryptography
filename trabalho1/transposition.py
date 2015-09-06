@@ -1,5 +1,6 @@
 from sys import argv
 from os.path import exists
+from math import ceil
 
 class Transposition:
 	"""docstring for TranspositionCipher"""
@@ -49,7 +50,7 @@ class Transposition:
 			matrix = [[]]
 
 			with open(file,'r+b') as f:
-				key = len(f.read()) / key
+				key = ceil(len(f.read()) / float(key))
 
 				f.seek(0) 
 
