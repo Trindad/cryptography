@@ -74,3 +74,11 @@ class Substitution:
 			print "File not exists"
 
 		return "substituition_decipher.txt"
+
+	def _decipher(self,text,keys):
+		
+		output = []	
+
+		for c in text:
+			output.append(keys[c])
+		return "".join(output)

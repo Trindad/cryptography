@@ -2,6 +2,7 @@ from sys import argv
 import operator
 
 class ConstructDictionary():
+
 	def construct(self,file):
 
 		str = ""
@@ -120,3 +121,4 @@ class ConstructDictionary():
 			for triplet in sorted(dictionary,key=dictionary.get,reverse=True):
 				trigraph = triplet+" "+str(dictionary[triplet])+"\n"
 				f.write(trigraph)
+				
