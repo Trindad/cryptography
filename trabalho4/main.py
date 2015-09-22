@@ -1,15 +1,18 @@
 from sys import argv
-from substitution_break import SubstitutionBreak
-from construct_dictionary import ConstructDictionary 
+import re
+import random
+from cipher import Cipher
+from ngram import NGram
+from break_cipher import BreakCipher
 
-script,enc = argv
+script,enc,text = argv
 
-dic = ConstructDictionary();
+c = Cipher()
+textEnc = c.cipher(enc)
 
-# print dic.constructDigraphs("dictionary.txt");
-# print dic.constructMonographs("dictionary.txt");
-substitution = SubstitutionBreak();
+dictionary =  c.processText(text)
 
-substitution.breakOpen(enc);
+b = BreakCipher()
 
+b.breakCipher(textEnc,dictionary)
 
