@@ -96,3 +96,52 @@ BigInteger Calculator::mult(BigInteger a, BigInteger b)
 
 	return s;
 }
+
+BigInteger Calculator::divide(BigInteger x, BigInteger d, BigInteger remainder)
+{
+    if (d.isZero()) {
+        return BigInteger(0);
+    }
+
+    BigInteger q = BigInteger(0);
+    remainder.number = x.number;
+
+    while (remainder.gte(d)) {
+        BigInteger one = BigInteger(1);
+        q = Calculator::add(q, one);
+        remainder = Calculator::sub(remainder, d);
+    }
+
+    return q;
+}
+
+BigInteger Calculator::mod(BigInteger x, BigInteger n)
+{
+    BigInteger remainder;
+    Calculator::divide(x, n, remainder);
+
+    return remainder;
+}
+
+BigInteger Calculator::sub(BigInteger x, BigInteger n)
+{
+  BigInteger result;
+
+  int cmp = x.compareTo(y);
+
+  if (cmp == 0) {
+  	return BigInteger(0);
+  }
+
+  return result;
+}
+
+BigInteger Calculator::gcd(BigInteger a, BigInteger b)
+{
+  if (b.isZero())
+  {
+    return a;
+  }
+
+  return Calculator::gcd(b, Calculator::mod(a, b));
+}

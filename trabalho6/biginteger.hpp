@@ -14,7 +14,11 @@ public:
 	BigInteger(vector<int>);
 	BigInteger(int);
 	~BigInteger();
-	
+
+	bool isZero();
+	bool gte(BigInteger n);
+	int compareTo(BigInteger y);
+
 	/**
 	 * Variáveis de entrada
 	 */
