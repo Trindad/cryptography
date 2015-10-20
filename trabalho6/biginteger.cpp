@@ -41,6 +41,16 @@ void BigInteger::read()
         this->number.push_back( atoi(&c) );
         i++;
     }
+
+    this->clean();
+}
+
+void BigInteger::clean()
+{
+	if ((int) this->number.size() > 1 && this->number[0] == 0) {
+		this->number.erase(this->number.begin(),this->number.begin()+1);
+		this->clean();
+	}
 }
 
 bool BigInteger::gte(BigInteger y)
@@ -69,14 +79,14 @@ int BigInteger::compareTo(BigInteger y)
     return 0;
 }
 
-// BigInteger BigInteger::fastModPow(BigInteger base, BigInteger exponent, BigInteger modulo) {
-//     // plan: exploit the binary representation of the exponent, see for example http://en.wikipedia.org/w/index.php?title=Modular_exponentiation&oldid=517653653#Right-to-left_binary_method
-//     BigInteger result = BigInteger.ONE;
-//     while (exponent.compareTo(BigInteger.ZERO) > 0) {
-//         if (exponent.testBit(0)) // then exponent is odd
-//             result = (result.multiply(base)).mod(modulo);
-//         exponent = exponent.shiftRight(1);
-//         base = (base.multiply(base)).mod(modulo);
-//     }
-//     return result.mod(modulo);
-// }
+string BigInteger::toString()
+{
+	string s = "";
+
+	for (int i = 0; i < (int) this->number.size(); i++)
+	{
+		s += to_string(this->number[i]);
+	}
+
+	return s;
+}

@@ -18,7 +18,8 @@ public:
 	bool isZero();
 	bool gte(BigInteger n);
 	int compareTo(BigInteger y);
-
+	void clean();
+	string toString();
 	/**
 	 * Variáveis de entrada
 	 */
