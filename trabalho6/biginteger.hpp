@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdlib>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -17,13 +18,19 @@ public:
 
 	bool isZero();
 	bool gte(BigInteger n);
+	int compareTo(int y);
 	int compareTo(BigInteger y);
 	void clean();
 	string toString();
+	void print();
 	/**
 	 * Variáveis de entrada
 	 */
 	vector<int> number;
+	short int signal;
+
+	static BigInteger fromInt(int n);
+	static BigInteger fromLongInt(long int n);
 
 	void read();
 };
