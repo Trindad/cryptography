@@ -33,15 +33,14 @@ int main(int argc, char const *argv[])
 	// cout << value1.toString() << endl;
 	// cout << value2.toString() << endl;
 
-	value1 = Calculator::mod(value1, value1);
-	value2 = Calculator::mod(value2, value2);
+	value1 = Calculator::mod(value1, modulo);
+	value2 = Calculator::mod(value2, modulo);
 	// value2 = Calculator::mod(value2, modulo);
 
 	// cout << "depois" << "---------------" << endl;
 
 	cout << value1.toString() << endl;
 	cout << value2.toString() << endl;
-	exit(1);
 
 	// cout  << "---------------" << endl;
 	BigInteger result;
@@ -50,8 +49,8 @@ int main(int argc, char const *argv[])
 	 * Opções da calculadora
 	 */
 	if (op == "+") {
-		// result = Calculator::mod(Calculator::add(value1,value2), modulo);
-		result = Calculator::add(value1,value2);
+		result = Calculator::mod(Calculator::add(value1,value2), modulo);
+		// result = Calculator::add(value1,value2);
 	}
 	else if (op == "*") {
 		// result = Calculator::mod(Calculator::mult(value1,value2), modulo);

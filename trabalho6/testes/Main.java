@@ -14,11 +14,11 @@ class Main {
 
     BigInteger modulo = new BigInteger(in.readLine());
 
-    // value1 = value1.mod(modulo);
-    // value2 = value2.mod(modulo);
+    value1 = value1.mod(modulo);
+    value2 = value2.mod(modulo);
 
-    // System.out.println(value1.toString());
-    // System.out.println(value2.toString());
+    System.out.println(value1.toString());
+    System.out.println(value2.toString());
 
     BigInteger result = new BigInteger("0");
 

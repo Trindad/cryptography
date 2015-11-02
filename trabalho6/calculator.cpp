@@ -220,7 +220,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     BigInteger tmp3 = Calculator::mult(tmp1, tmp2);
 
     // cout << "X " << x.toString() << endl;
-    // cout << "tmp3 " << tmp3.toString() << endl;
+    // cout << "tmp3 " << x.toString() << endl;
     x = Calculator::sub(x, tmp3);
     if (x.compareTo(0) < 0) {
       x = Calculator::add(x, tmp1);
