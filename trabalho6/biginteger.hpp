@@ -23,6 +23,9 @@ public:
 	void clean();
 	string toString();
 	void print();
+	long int asLongInt();
+	int atBackwards(int index);
+
 	/**
 	 * Variáveis de entrada
 	 */

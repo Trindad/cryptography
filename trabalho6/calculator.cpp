@@ -156,6 +156,9 @@ BigInteger Calculator::pow(BigInteger base, long int exponent)
 
 BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 {
+  x.signal = 1;
+  y.signal = 1;
+
   long int _n = (long int)x.number.size() - 1;
 	long int _t = (long int)y.number.size() - 1;
 
@@ -182,43 +185,46 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     q.number.push_back(0);
   }
 
-  BigInteger temp = Calculator::pow(BigInteger(10),(long int) n);
+  BigInteger temp = Calculator::pow(BigInteger::fromInt(10),(long int) n);
 
   BigInteger t = Calculator::mult(y,temp);
-  cout << t.toString() << endl;
 
   while(x.compareTo(t) >= 0)
   {
-    q.number[0]++;
-    cout << x.signal << " " << t.signal;
+    int qs = (int) q.number.size() - 1;
+    q.number[qs - n]++;
     x = Calculator::sub(x,t);
-    cout << x.toString() << endl;
   }
 
-	for (long int i = _n; i > _t; --i)
+	for (int i = _n; i > _t; --i)
 	{
-    long int _n2 = (long int) x.number.size() - 1;
-		if (x.number[_n2 - i] == y.number[0]) {
-      q.number[_t - (i - _t - 1)] = 9;
+    int _n2 = x.number.size() - 1;
+    int _qs = q.number.size() - 1;
+
+		if (x.atBackwards(i) == y.number[0]) {
+      q.number[_qs - (i - _t - 1)] = 9;
     }
     else
     {
-			q.number[_t - (i - _t - 1)] = floor(((x.number[_n2 - i]*10) + x.number[_n2 - (i-1)])/(float)y.number[0]);
+			q.number[_qs - (i - _t - 1)] = floor(((x.atBackwards(i)*10) + x.atBackwards(i-1))/(float)y.number[0]);
 		}
 
-		while (q.number[_t - (i - _t - 1)] * ((y.number[0]*10) + y.number[1]) > (x.number[_n2 - i] * 100) + (x.number[_n2 - (i - 1)] * 10) + x.number[_n2 - (i - 2)])
+		while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1]) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
 		{
-			q.number[_t - (i - _t - 1)]--;
+			q.number[_qs - (i - _t - 1)]--;
 		}
-		BigInteger a = Calculator::pow(BigInteger(10),(long int) i - _t - 1);
+		BigInteger a = Calculator::pow(BigInteger::fromInt(10),(long int) i - _t - 1);
 		BigInteger tmp1 = Calculator::mult(a, y);
-		BigInteger tmp2 = BigInteger::fromInt(q.number[_t - (i - _t - 1)]);
+
+		BigInteger tmp2 = BigInteger::fromInt(q.atBackwards(i - _t - 1));
     BigInteger tmp3 = Calculator::mult(tmp1, tmp2);
 
+    // cout << "X " << x.toString() << endl;
+    // cout << "tmp3 " << tmp3.toString() << endl;
     x = Calculator::sub(x, tmp3);
     if (x.compareTo(0) < 0) {
       x = Calculator::add(x, tmp1);
-      q.number[_t - (i - _t - 1)]--;
+      q.number[_qs - (i - _t - 1)]--;
     }
 	}
 
@@ -233,18 +239,11 @@ BigInteger Calculator::divide(BigInteger x, BigInteger d, BigInteger& remainder)
 
     BigInteger q = BigInteger(0);
     remainder.number = x.number;
-    // BigInteger t = remainder;
 
     while (true) {
-    	cout<<"\n\n R ";
-    	remainder.print();
         BigInteger one = BigInteger(1);
         q = Calculator::add(q, one);
-        cout<<"-\n";
-        cout<<" D ";
-        d.print();
         BigInteger t = Calculator::sub(remainder, d);
-        cout<<"\n = \n  ";
 
         remainder.number.clear();
         for (int y = 0; y < (int) t.number.size(); y++)
@@ -252,19 +251,14 @@ BigInteger Calculator::divide(BigInteger x, BigInteger d, BigInteger& remainder)
         	remainder.number.push_back(t.number[y]);
         }
 
-        remainder.print();
-
-    	// cout << "AAAAH " << remainder.compareTo(d) << endl;
-
         if (remainder.compareTo(d) < 0)
         {
 
         	break;
         }
         t.number.clear();
-         cout<<"************************************\n"<<endl;
     }
-    cout << "KILL ME" << endl;
+
     return q;
 }
 
@@ -276,10 +270,7 @@ BigInteger Calculator::divide(BigInteger x, BigInteger d)
 
 BigInteger Calculator::mod(BigInteger x, BigInteger n)
 {
-    BigInteger remainder;
-    Calculator::divide(x, n, remainder);
-
-    return remainder;
+    return Calculator::multiplePrecisionDivision(x, n);
 }
 
 BigInteger Calculator::sub(BigInteger _a, BigInteger _b)

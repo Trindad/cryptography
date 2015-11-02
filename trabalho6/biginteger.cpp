@@ -138,6 +138,23 @@ string BigInteger::toString()
     return s;
 }
 
+int BigInteger::atBackwards(int index)
+{
+    int n = (int) this->number.size() - 1;
+
+    return this->number[n - index];
+}
+
+long int BigInteger::asLongInt()
+{
+    long int r;
+    string str = this->toString();
+
+    istringstream (str) >> r;
+
+    return r;
+}
+
 void BigInteger::print()
 {
     if (this->signal == -1) {

@@ -15,46 +15,57 @@
 
 int main(int argc, char const *argv[])
 {
-	long int a = 46513;
 	BigInteger value1;
 	BigInteger value2;
-
 
 	value1.read();
 
 	string op;
-	// getline(cin,op);
-
+	getline(cin,op);
 
 	value2.read();
-	BigInteger r = Calculator::multiplePrecisionDivision(value1, value2);
-	cout << r.toString() << endl;
-	return 0;
 
 	BigInteger modulo;
 	modulo.read();
 
-	value1 = Calculator::mod(value1, modulo);
-	value2 = Calculator::mod(value2, modulo);
+	// cout << modulo.toString() << endl;
+	// cout << "antes" << "---------------" << endl;
+	// cout << value1.toString() << endl;
+	// cout << value2.toString() << endl;
 
+	value1 = Calculator::mod(value1, value1);
+	value2 = Calculator::mod(value2, value2);
+	// value2 = Calculator::mod(value2, modulo);
+
+	// cout << "depois" << "---------------" << endl;
+
+	cout << value1.toString() << endl;
+	cout << value2.toString() << endl;
+	exit(1);
+
+	// cout  << "---------------" << endl;
 	BigInteger result;
 
 	/**
 	 * Opções da calculadora
 	 */
 	if (op == "+") {
-		result = Calculator::mod(Calculator::add(value1,value2), modulo);
+		// result = Calculator::mod(Calculator::add(value1,value2), modulo);
+		result = Calculator::add(value1,value2);
 	}
 	else if (op == "*") {
-		result = Calculator::mod(Calculator::mult(value1,value2), modulo);
+		// result = Calculator::mod(Calculator::mult(value1,value2), modulo);
+		result = Calculator::mult(value1,value2);
 	} else if (op == "\%") {
 		result = Calculator::mod(value1,value2);
 	}
 	else if (op == "^") {
-		result = Calculator::modPow(value1,value2,modulo);
+		// result = Calculator::mod(Calculator::pow(value1,value2.asLongInt()), modulo);
+		result = Calculator::pow(value1,value2.asLongInt());
 	}
 	else if (op == "-") {
-		result = Calculator::mod(Calculator::sub(value1,value2), modulo);
+		// result = Calculator::mod(Calculator::sub(value1,value2), modulo);
+		result = Calculator::sub(value1,value2);
 	}
 	else if (op == "/") {
 		BigInteger rem;
@@ -68,8 +79,7 @@ int main(int argc, char const *argv[])
 		return 1;
 	}
 
-	for(int i = 0; i < (int)result.number.size();i++ )cout<<result.number[i];
-	cout<<endl;
+	cout << result.toString() << endl;
 
 	return 0;
 }
