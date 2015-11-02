@@ -17,19 +17,19 @@ class Main {
     value1 = value1.mod(modulo);
     value2 = value2.mod(modulo);
 
-    System.out.println(value1.toString());
-    System.out.println(value2.toString());
+    // System.out.println(value1.toString());
+    // System.out.println(value2.toString());
 
     BigInteger result = new BigInteger("0");
 
     if (op.equals("+")) {
-      result = value1.add(value2); //.mod(modulo);
+      result = value1.add(value2).mod(modulo);
     } else if (op.equals("*")) {
-      result = value1.multiply(value2); //.mod(modulo);
+      result = value1.multiply(value2).mod(modulo);
     } else if (op.equals("^")) {
-      result = value1.pow(value2.intValue()); //.mod(modulo);
+      result = value1.pow(value2.intValue()).mod(modulo);
     } else if (op.equals("-")) {
-      result = value1.subtract(value2); //.mod(modulo);
+      result = value1.subtract(value2).mod(modulo);
     }
 
     System.out.println(result.toString());

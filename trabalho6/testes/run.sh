@@ -17,6 +17,8 @@ do
 
     if [ "$nosso" = "$tjava" ]; then
       printf "${GREEN}✓ ${file}${NC}\n"
+      printf "\t ${nosso}\n"
+      printf "\t ${tjava}\n"
     else
       printf "${RED}✗ ${file}${NC}\n"
       printf "\t ${nosso}\n"

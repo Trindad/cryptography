@@ -141,21 +141,45 @@ BigInteger Calculator::mult(BigInteger a, BigInteger b)
 	return s;
 }
 
-BigInteger Calculator::pow(BigInteger base, long int exponent)
+BigInteger Calculator::pow(BigInteger x, long int n)
 {
-  BigInteger result(1);
-  for (long int i = 0; i < exponent; i++)
-  {
-    result = Calculator::mult(result, base);
+  BigInteger y(1);
+
+  while (n > 0) {
+
+    if (n % 2 == 1)
+    {
+      y = Calculator::mult(x, y);
+    }
+
+    x = Calculator::mult(x, x);
+    n /= 2;
   }
 
-  return result;
+  return y;
+}
+
+BigInteger Calculator::pow10(long int n)
+{
+  BigInteger y;
+  y.number = vector<int>(n+1, 0);
+
+  y.number[0] = 1;
+
+  return y;
 }
 
 BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 {
-  x.signal = 1;
-  y.signal = 1;
+  BigInteger xorig = x;
+  BigInteger yorig = y;
+  int xsig = x.signal;
+  int ysig = y.signal;
+
+  if (xsig == -1 && ysig == 1) {
+    x.signal = 1;
+    return Calculator::sub(y, Calculator::multiplePrecisionDivision(x, y));
+  }
 
   int _n = (int)x.number.size() - 1;
 	int _t = (int)y.number.size() - 1;
@@ -170,7 +194,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     return x;
   }
 
-  if (x.compareTo(y) < 0) {
+  if (x.compareTo(0) > 0 && x.compareTo(y) < 0) {
     return x;
   }
 
@@ -183,7 +207,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     q.number.push_back(0);
   }
 
-  BigInteger temp = Calculator::pow(BigInteger::fromInt(10),(int) n);
+  BigInteger temp = Calculator::pow10(n);
 
   BigInteger t = Calculator::mult(y,temp);
 
@@ -210,7 +234,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 		{
 			q.number[_qs - (i - _t - 1)]--;
 		}
-		BigInteger a = Calculator::pow(BigInteger::fromInt(10),(long int) i - _t - 1);
+		BigInteger a = Calculator::pow10((long int) i - _t - 1);
 		BigInteger tmp1 = Calculator::mult(a, y);
 
 		BigInteger tmp2 = BigInteger::fromInt(q.atBackwards(i - _t - 1));

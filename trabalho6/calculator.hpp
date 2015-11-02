@@ -17,4 +17,5 @@ public:
   static BigInteger inverse(BigInteger a, BigInteger n);
   static BigInteger modPow(BigInteger base, BigInteger exponent, BigInteger modulo);
   static BigInteger pow(BigInteger base, long int exponent);
+  static BigInteger pow10(long int exponent);
 };

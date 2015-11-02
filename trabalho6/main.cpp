@@ -39,9 +39,9 @@ int main(int argc, char const *argv[])
 
 	// cout << "depois" << "---------------" << endl;
 
-	cout << value1.toString() << endl;
-	cout << value2.toString() << endl;
-	
+	// cout << value1.toString() << endl;
+	// cout << value2.toString() << endl;
+
 
 	// cout  << "---------------" << endl;
 	BigInteger result;
@@ -54,18 +54,18 @@ int main(int argc, char const *argv[])
 		// result = Calculator::add(value1,value2);
 	}
 	else if (op == "*") {
-		// result = Calculator::mod(Calculator::mult(value1,value2), modulo);
-		result = Calculator::mult(value1,value2);
+		result = Calculator::mod(Calculator::mult(value1,value2), modulo);
+		// result = Calculator::mult(value1,value2);
 	} else if (op == "\%") {
 		result = Calculator::mod(value1,value2);
 	}
 	else if (op == "^") {
-		// result = Calculator::mod(Calculator::pow(value1,value2.asLongInt()), modulo);
-		result = Calculator::pow(value1,value2.asLongInt());
+		result = Calculator::mod(Calculator::pow(value1,value2.asLongInt()), modulo);
+		// result = Calculator::pow(value1,value2.asLongInt());
 	}
 	else if (op == "-") {
-		// result = Calculator::mod(Calculator::sub(value1,value2), modulo);
-		result = Calculator::sub(value1,value2);
+		result = Calculator::mod(Calculator::sub(value1,value2), modulo);
+		// result = Calculator::sub(value1,value2);
 	}
 	else if (op == "/") {
 		BigInteger rem;
