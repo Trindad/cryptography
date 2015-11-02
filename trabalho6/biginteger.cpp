@@ -140,9 +140,19 @@ string BigInteger::toString()
 
 int BigInteger::atBackwards(int index)
 {
-    int n = (int) this->number.size() - 1;
+    if (index <= -1 )
+    {
+        cout<<"Acesso inválido"<<endl;
+        exit(1);
+    }
 
-    return this->number[n - index];
+    int n = (int) number.size();
+    n = n - index - 1;
+    if (n <= -1)
+    {
+        return 0;
+    }
+    return number[n];
 }
 
 long int BigInteger::asLongInt()
@@ -184,7 +194,7 @@ BigInteger BigInteger::fromLongInt(long int n)
         r.signal = 1;
     }
 
-    for (int i = 0; i < s.length(); i++)
+    for (int i = 0; i < (int)s.length(); i++)
     {
         int num;
         istringstream ( string(1, s[i]) ) >> num;

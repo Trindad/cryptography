@@ -40,7 +40,7 @@ BigInteger Calculator::add(BigInteger a, BigInteger b)
   if (siga != sigb)
   {
     BigInteger min, max;
-    int sigmax, sigmin;
+    int sigmax = 0;
 
     a.signal = 1;
     b.signal = 1;
@@ -52,12 +52,10 @@ BigInteger Calculator::add(BigInteger a, BigInteger b)
       min = b;
       max = a;
       sigmax = siga;
-      sigmin = sigb;
     } else {
       min = a;
       max = b;
       sigmax = sigb;
-      sigmin = siga;
     }
 
     min.signal = 1;
@@ -159,8 +157,8 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
   x.signal = 1;
   y.signal = 1;
 
-  long int _n = (long int)x.number.size() - 1;
-	long int _t = (long int)y.number.size() - 1;
+  int _n = (int)x.number.size() - 1;
+	int _t = (int)y.number.size() - 1;
 
   if (y.compareTo(0) == 0)
   {
@@ -176,7 +174,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     return x;
   }
 
-  long int n = _n - _t;
+  int n = _n - _t;
 
   BigInteger q;//quociente
 
@@ -185,7 +183,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     q.number.push_back(0);
   }
 
-  BigInteger temp = Calculator::pow(BigInteger::fromInt(10),(long int) n);
+  BigInteger temp = Calculator::pow(BigInteger::fromInt(10),(int) n);
 
   BigInteger t = Calculator::mult(y,temp);
 
@@ -196,9 +194,8 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     x = Calculator::sub(x,t);
   }
 
-	for (int i = _n; i > _t; --i)
+	for (int i = _n; i > _t; i--)
 	{
-    int _n2 = x.number.size() - 1;
     int _qs = q.number.size() - 1;
 
 		if (x.atBackwards(i) == y.number[0]) {
@@ -219,12 +216,11 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 		BigInteger tmp2 = BigInteger::fromInt(q.atBackwards(i - _t - 1));
     BigInteger tmp3 = Calculator::mult(tmp1, tmp2);
 
-    // cout << "X " << x.toString() << endl;
-    // cout << "tmp3 " << x.toString() << endl;
     x = Calculator::sub(x, tmp3);
+
     if (x.compareTo(0) < 0) {
       x = Calculator::add(x, tmp1);
-      q.number[_qs - (i - _t - 1)]--;
+      q.number[_qs - (i - _t - 1)] = q.number[_qs - (i - _t - 1)] - 1;
     }
 	}
 
@@ -270,7 +266,7 @@ BigInteger Calculator::divide(BigInteger x, BigInteger d)
 
 BigInteger Calculator::mod(BigInteger x, BigInteger n)
 {
-    return Calculator::multiplePrecisionDivision(x, n);
+  return Calculator::multiplePrecisionDivision(x, n);
 }
 
 BigInteger Calculator::sub(BigInteger _a, BigInteger _b)
