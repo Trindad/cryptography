@@ -16,6 +16,6 @@ public:
   static BigInteger gcd(BigInteger a, BigInteger b);
   static BigInteger inverse(BigInteger a, BigInteger n);
   static BigInteger modPow(BigInteger base, BigInteger exponent, BigInteger modulo);
-  static BigInteger pow(BigInteger base, long int exponent);
+  static BigInteger pow(BigInteger base, long int exponent,BigInteger);
   static BigInteger pow10(long int exponent);
 };

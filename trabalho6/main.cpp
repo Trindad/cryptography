@@ -60,7 +60,7 @@ int main(int argc, char const *argv[])
 		result = Calculator::mod(value1,value2);
 	}
 	else if (op == "^") {
-		result = Calculator::mod(Calculator::pow(value1,value2.asLongInt()), modulo);
+		result = Calculator::pow(value1,value2.asLongInt(),modulo);
 		// result = Calculator::pow(value1,value2.asLongInt());
 	}
 	else if (op == "-") {

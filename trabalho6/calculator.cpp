@@ -141,18 +141,20 @@ BigInteger Calculator::mult(BigInteger a, BigInteger b)
 	return s;
 }
 
-BigInteger Calculator::pow(BigInteger x, long int n)
+BigInteger Calculator::pow(BigInteger x, long int n, BigInteger m)
 {
   BigInteger y(1);
+
+  x = Calculator::mod(x,m);
 
   while (n > 0) {
 
     if (n % 2 == 1)
     {
-      y = Calculator::mult(x, y);
+      y = Calculator::mod( Calculator::mult(x, y), m );
     }
 
-    x = Calculator::mult(x, x);
+    x = Calculator::mod(Calculator::mult(x, x),m);
     n /= 2;
   }
 
