@@ -1,3 +1,6 @@
+#ifndef BIGINTEGER_H
+#define BIGINTEGER_H
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -37,3 +40,5 @@ public:
 
 	void read();
 };
+
+#endif
