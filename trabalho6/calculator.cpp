@@ -173,7 +173,7 @@ BigInteger Calculator::pow10(long int n)
 
 /**
  * Algoritmo de divisão do Knuth
- * http://cacr.uwaterloo.ca/hac/about/chap14.pdf 
+ * http://cacr.uwaterloo.ca/hac/about/chap14.pdf
  * Pg. 9
  */
 BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
@@ -207,7 +207,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
   }
 
   /**
-   * Verificação para ponto flutuante 
+   * Verificação para ponto flutuante
    */
   if (_n < _t)
   {
@@ -252,7 +252,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
      *  minimo entre a base-1 e (xi*b+xi-1)/y0
      */
 		if (x.atBackwards(i) == y.number[0]) {
-     
+
       q.number[_qs - (i - _t - 1)] = 9;//base-1
     }
     else
@@ -260,7 +260,7 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
       /**
        * Pega x(i)*10+x(i-1) do vetor x, ex x(i) = 7 e x(i-1) = 5
        * multiplica por 10 para resultar 75 ao invés de 13(errado)
-       * Inserindo nas posição "_qs - (i - _t - 1)" de q, iniciando 
+       * Inserindo nas posição "_qs - (i - _t - 1)" de q, iniciando
        * a inserção na posição 1, se x for menor que t, qs é o tamanho
        * de q-1, ou seja, o vetor que vai de 0 até (x-y) -- 5 posições
        * supondo i = 8 e t = 4, _qs - (8-4-1) => _qs - (3) => 4 - 1 => 1
@@ -270,14 +270,13 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 
     /**
      * Subtrai 1 da posição "_qs - (i - _t - 1)" do vetor q
-     * Até que a condição seja verdadeira. Ajustar valor da 
-     * posição do quociente, para casos onde ela é 1 ou 2 maior 
+     * Até que a condição seja verdadeira. Ajustar valor da
+     * posição do quociente, para casos onde ela é 1 ou 2 maior
      * que o valor correto.
      */
 		while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1]) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
 		{
-      cout<<q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1])<<" "<<(x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2)<<endl;
-			q.number[_qs - (i - _t - 1)]--;
+      q.number[_qs - (i - _t - 1)]--;
 		}
 
 		BigInteger a = Calculator::pow10((long int) i - _t - 1);
@@ -288,12 +287,12 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
      */
 		BigInteger tmp2 = BigInteger::fromInt(q.atBackwards(i - _t - 1));
     BigInteger tmp3 = Calculator::mult(tmp1, tmp2);//t3 é quantas vezes o valor y cabe em x
-   
+
     /**
      * Subtrai valores x - tmp3, obtendo o novo valor de x
      */
     x = Calculator::sub(x, tmp3);
- 
+
     /**
      * Se x ficar negativo
      * corrige valor do coeficiente e volta
