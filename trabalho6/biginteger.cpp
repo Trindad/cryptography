@@ -142,8 +142,7 @@ int BigInteger::atBackwards(int index)
 {
     if (index <= -1 )
     {
-        cout<<"Acesso inválido"<<endl;
-        exit(1);
+        return 0;
     }
 
     int n = (int) number.size();

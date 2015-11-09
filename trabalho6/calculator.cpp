@@ -307,35 +307,86 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 	return x;
 }
 
-BigInteger Calculator::divide(BigInteger x, BigInteger d, BigInteger& remainder)
+BigInteger Calculator::divide(BigInteger x, BigInteger y, BigInteger& remainder)
 {
-    if (d.isZero()) {
-        return BigInteger(0);
+  BigInteger xorig = x;
+  BigInteger yorig = y;
+  int xsig = x.signal;
+  int ysig = y.signal;
+
+  if (xsig == -1 && ysig == 1) {
+    x.signal = 1;
+    return Calculator::sub(y, Calculator::multiplePrecisionDivision(x, y));
+  }
+
+  int _n = (int)x.number.size() - 1;
+  int _t = (int)y.number.size() - 1;
+
+  if (y.compareTo(0) == 0)
+  {
+    return BigInteger(0);
+  }
+
+  if (_n < _t)
+  {
+    return x;
+  }
+
+  if (x.compareTo(0) > 0 && x.compareTo(y) < 0) {
+    return x;
+  }
+
+  int n = _n - _t;
+
+  BigInteger q;//quociente
+
+  for (int i = 0; i <= n; i++)
+  {
+    q.number.push_back(0);
+  }
+
+  BigInteger temp = Calculator::pow10(n);
+
+  BigInteger t = Calculator::mult(y,temp);
+
+  while(x.compareTo(t) >= 0)
+  {
+    int qs = (int) q.number.size() - 1;
+    q.number[qs - n]++;
+    x = Calculator::sub(x,t);
+  }
+
+  for (int i = _n; i > _t; i--)
+  {
+    int _qs = q.number.size() - 1;
+
+    if (x.atBackwards(i) == y.number[0]) {
+      q.number[_qs - (i - _t - 1)] = 9;
+    }
+    else
+    {
+      q.number[_qs - (i - _t - 1)] = floor(((x.atBackwards(i)*10) + x.atBackwards(i-1))/(float)y.number[0]);
     }
 
-    BigInteger q = BigInteger(0);
-    remainder.number = x.number;
-
-    while (true) {
-        BigInteger one = BigInteger(1);
-        q = Calculator::add(q, one);
-        BigInteger t = Calculator::sub(remainder, d);
-
-        remainder.number.clear();
-        for (int y = 0; y < (int) t.number.size(); y++)
-        {
-        	remainder.number.push_back(t.number[y]);
-        }
-
-        if (remainder.compareTo(d) < 0)
-        {
-
-        	break;
-        }
-        t.number.clear();
+    while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1]) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
+    {
+      q.number[_qs - (i - _t - 1)]--;
     }
+    BigInteger a = Calculator::pow10((long int) i - _t - 1);
+    BigInteger tmp1 = Calculator::mult(a, y);
 
-    return q;
+    BigInteger tmp2 = BigInteger::fromInt(q.atBackwards(i - _t - 1));
+    BigInteger tmp3 = Calculator::mult(tmp1, tmp2);
+
+    x = Calculator::sub(x, tmp3);
+
+    if (x.compareTo(0) < 0) {
+      x = Calculator::add(x, tmp1);
+      q.number[_qs - (i - _t - 1)] = q.number[_qs - (i - _t - 1)] - 1;
+    }
+  }
+
+  return q;
 }
 
 BigInteger Calculator::divide(BigInteger x, BigInteger d)
@@ -421,52 +472,25 @@ BigInteger Calculator::sub(BigInteger _a, BigInteger _b)
   return result;
 }
 
-BigInteger Calculator::gcd(BigInteger a, BigInteger b)
-{
-  if (b.isZero())
-  {
-    return a;
-  }
-
-  return Calculator::gcd(b, Calculator::mod(a, b));
-}
-
-BigInteger Calculator::modPow(BigInteger base, BigInteger exponent, BigInteger modulo) {
-    BigInteger result = BigInteger(1);
-
-    while (exponent.compareTo(BigInteger(0)) > 0)
-    {
-    	// expoente impar
-        if( (exponent.number[(int) exponent.number.size() - 1] % 2 ) == 1) {
-            result = Calculator::mod(Calculator::mult(result,base), modulo);
-        }
-        BigInteger rem = BigInteger();
-        exponent = Calculator::divide(exponent, BigInteger(2), rem);
-        base = Calculator::mod(Calculator::mult(base, base), modulo);
-    }
-
-    return Calculator::mod(result, modulo);
-}
-
 BigInteger Calculator::inverse(BigInteger a, BigInteger n) {
 
-	BigInteger result,newt,newr = a,r = n;
-
-	result.number.push_back(0);
-	newt.number.push_back(1);
+	BigInteger t(0);
+  BigInteger newt(1);
+  BigInteger newr = a;
+  BigInteger r = n;
 	BigInteger zero = BigInteger(0);
 	BigInteger one = BigInteger(1);
 
-	while(newr.compareTo(zero) != 0) {
+	while(newr.compareTo(zero) > 0) {
 		BigInteger quotient = Calculator::divide(r,newr);
 
-		BigInteger temp1 = Calculator::sub(result, Calculator::mult(quotient, newt));
-		result.number = newt.number;
-		newt.number = temp1.number;
+		BigInteger temp1 = Calculator::sub(t, Calculator::mult(quotient, newt));
+		t = newt;
+		newt = temp1;
 
 		temp1 = Calculator::sub(r, Calculator::mult(quotient, newr));
-		r.number = newr.number;
-		newr.number = temp1.number;
+		r = newr;
+		newr = temp1;
 	}
 
 	if(r.compareTo(one) > 0)
@@ -475,10 +499,10 @@ BigInteger Calculator::inverse(BigInteger a, BigInteger n) {
 		exit(1);
 	}
 
-	if (result.compareTo(0) < 0)
+	if (t.compareTo(0) < 0)
 	{
-		result = Calculator::add(result, n);
+		t = Calculator::add(t, n);
 	}
 
-	return result;
+	return t;
 }

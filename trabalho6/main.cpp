@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
 		result = Calculator::mod(Calculator::divide(value1,value2,rem), modulo);
 	}
 	else if (op == "~") {
-		result = Calculator::mod(Calculator::inverse(value1,value2), modulo);
+		result =  Calculator::mod(Calculator::inverse(value1,value2), modulo);
 	}
 	else {
 		cout << "Invalid operation. Aborting..." << endl;

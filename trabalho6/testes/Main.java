@@ -30,6 +30,8 @@ class Main {
       result = value1.pow(value2.intValue()).mod(modulo);
     } else if (op.equals("-")) {
       result = value1.subtract(value2).mod(modulo);
+    } else if (op.equals("~")) {
+      result = value1.modInverse(value2);
     }
 
     System.out.println(result.toString());

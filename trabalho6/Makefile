@@ -1,4 +1,4 @@
 all:
-	g++ *.cpp -o main --std=c++11 -O3
+	g++ *.cpp -o main --std=c++11 -g
 clean:
 	rm main
