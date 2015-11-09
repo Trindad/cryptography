@@ -171,36 +171,57 @@ BigInteger Calculator::pow10(long int n)
   return y;
 }
 
+/**
+ * Algoritmo de divisão do Knuth
+ * http://cacr.uwaterloo.ca/hac/about/chap14.pdf 
+ * Pg. 9
+ */
 BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 {
   BigInteger xorig = x;
   BigInteger yorig = y;
+
   int xsig = x.signal;
   int ysig = y.signal;
 
+  /**
+   * Faz o módulo para um número negativo
+   */
   if (xsig == -1 && ysig == 1) {
     x.signal = 1;
     return Calculator::sub(y, Calculator::multiplePrecisionDivision(x, y));
   }
 
+  /**
+   * Obtêm o tamanho dos vetores com os BigIntegers
+   */
   int _n = (int)x.number.size() - 1;
 	int _t = (int)y.number.size() - 1;
 
+  /**
+   * Verifica se y é 0, para não tentar dividir por 0
+   */
   if (y.compareTo(0) == 0)
   {
     return BigInteger(0);
   }
 
+  /**
+   * Verificação para ponto flutuante 
+   */
   if (_n < _t)
   {
     return x;
   }
 
+  /**
+   * Caso de ponto fluante ex: 8/9
+   */
   if (x.compareTo(0) > 0 && x.compareTo(y) < 0) {
     return x;
   }
 
-  int n = _n - _t;
+  int n = _n - _t;//obtêm a diferença
 
   BigInteger q;//quociente
 
@@ -209,10 +230,12 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
     q.number.push_back(0);
   }
 
-  BigInteger temp = Calculator::pow10(n);
+  BigInteger temp = Calculator::pow10(n);//10^n
+  BigInteger t = Calculator::mult(y,temp);//tamanho de y fica igual ao de x
 
-  BigInteger t = Calculator::mult(y,temp);
-
+  /**
+   * Subtrai até que x seja menor que t
+   */
   while(x.compareTo(t) >= 0)
   {
     int qs = (int) q.number.size() - 1;
@@ -222,28 +245,59 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
 
 	for (int i = _n; i > _t; i--)
 	{
-    int _qs = q.number.size() - 1;
+    int _qs = (int)q.number.size() - 1;
 
+    /**
+     * Otimização:
+     *  minimo entre a base-1 e (xi*b+xi-1)/y0
+     */
 		if (x.atBackwards(i) == y.number[0]) {
-      q.number[_qs - (i - _t - 1)] = 9;
+     
+      q.number[_qs - (i - _t - 1)] = 9;//base-1
     }
     else
     {
-			q.number[_qs - (i - _t - 1)] = floor(((x.atBackwards(i)*10) + x.atBackwards(i-1))/(float)y.number[0]);
+      /**
+       * Pega x(i)*10+x(i-1) do vetor x, ex x(i) = 7 e x(i-1) = 5
+       * multiplica por 10 para resultar 75 ao invés de 13(errado)
+       * Inserindo nas posição "_qs - (i - _t - 1)" de q, iniciando 
+       * a inserção na posição 1, se x for menor que t, qs é o tamanho
+       * de q-1, ou seja, o vetor que vai de 0 até (x-y) -- 5 posições
+       * supondo i = 8 e t = 4, _qs - (8-4-1) => _qs - (3) => 4 - 1 => 1
+       */
+      q.number[_qs - (i - _t - 1)] = floor(((x.atBackwards(i)*10) + x.atBackwards(i-1))/(float)y.number[0]);
 		}
 
+    /**
+     * Subtrai 1 da posição "_qs - (i - _t - 1)" do vetor q
+     * Até que a condição seja verdadeira. Ajustar valor da 
+     * posição do quociente, para casos onde ela é 1 ou 2 maior 
+     * que o valor correto.
+     */
 		while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1]) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
 		{
+      cout<<q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1])<<" "<<(x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2)<<endl;
 			q.number[_qs - (i - _t - 1)]--;
 		}
+
 		BigInteger a = Calculator::pow10((long int) i - _t - 1);
 		BigInteger tmp1 = Calculator::mult(a, y);
 
+    /**
+     * tmp2 é o valor do coeficiente, preenche vetor q de 0 até n-1
+     */
 		BigInteger tmp2 = BigInteger::fromInt(q.atBackwards(i - _t - 1));
-    BigInteger tmp3 = Calculator::mult(tmp1, tmp2);
-
+    BigInteger tmp3 = Calculator::mult(tmp1, tmp2);//t3 é quantas vezes o valor y cabe em x
+   
+    /**
+     * Subtrai valores x - tmp3, obtendo o novo valor de x
+     */
     x = Calculator::sub(x, tmp3);
-
+ 
+    /**
+     * Se x ficar negativo
+     * corrige valor do coeficiente e volta
+     */
     if (x.compareTo(0) < 0) {
       x = Calculator::add(x, tmp1);
       q.number[_qs - (i - _t - 1)] = q.number[_qs - (i - _t - 1)] - 1;
