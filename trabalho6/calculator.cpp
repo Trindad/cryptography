@@ -168,7 +168,7 @@ BigInteger Calculator::pow(BigInteger x, BigInteger n, BigInteger m)
   x = Calculator::mod(x,m);
 
   while (n.compareTo(BigInteger(0)) > 0) {
-    
+
     if (Calculator::mod(n,BigInteger(2)).compareTo(BigInteger(1)) == 0)
     {
       y = Calculator::mod( Calculator::mult(x, y), m );
@@ -540,5 +540,23 @@ BigInteger Calculator::gcd(BigInteger a, BigInteger b)
     a = t;
   }
 
-  return a; 
+  return a;
+}
+
+bool Calculator::isPrime(BigInteger number)
+{
+    if (number.compareTo(1) <= 0) return false;
+
+    BigInteger i(2);
+
+    while (number.compareTo(Calculator::mult(i, i)) > 0) {
+        BigInteger m = Calculator::mod(number, i);
+        if (m.compareTo(0) == 0) {
+            return false;
+        }
+
+        i = Calculator::add(i, BigInteger(1));
+    }
+
+    return true;
 }

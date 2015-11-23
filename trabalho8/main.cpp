@@ -7,11 +7,11 @@
 
 	Onde e e’ a chave de cifragem e d e’ a chave de decifragem.
 
-	Como xφ(N) = 1 (mod N)  (prova em [1]) segue que xφ(N) + 1 = x (mod N) 
+	Como xφ(N) = 1 (mod N)  (prova em [1]) segue que xφ(N) + 1 = x (mod N)
 	Como xφ(N) + 1 = x (mod N) e xed = x (mod N), entao φ(N) + 1 = ed
 
 
-	Aplicando o modulo φ(N) em φ(N) + 1 = ed temos 1 = ed (mod φ(N)) 
+	Aplicando o modulo φ(N) em φ(N) + 1 = ed temos 1 = ed (mod φ(N))
 	Ou seja e e d são um número e seu inverso multiplicativo modulo φ(N)
 
 	Para calcular pares de números e e d:
@@ -25,7 +25,7 @@
 int main(int argc, char const *argv[])
 {
 	BigInteger p, q, n, e,x;
-	
+
 	p.read();
 	q.read();
 	e.read();
@@ -34,22 +34,29 @@ int main(int argc, char const *argv[])
 	n = Calculator::mult(p,q);// ( p * q ) = n
 
 	/**
-	 * Obtendo φ(n) = φ(p)φ(q) = (p − 1)(q − 1) 
+	 * Obtendo φ(n) = φ(p)φ(q) = (p − 1)(q − 1)
 	 * Euler's phi function
 	 */
 	BigInteger t(1);
 
 	BigInteger p1 = Calculator::sub(p,t);
-	BigInteger q1 = Calculator::sub(q,t); 
+	BigInteger q1 = Calculator::sub(q,t);
 
 	BigInteger phi = Calculator::mult(p1,q1);
-
+	cout << phi.toString() << endl;
+	BigInteger coprimoN(2);
 	/**
 	 * Obtêm número e que é um número coprimo
 	 */
-	BigInteger coprimo = Calculator::gcd(BigInteger(1),n);
+	while (coprimoN.compareTo(phi) < 0) {
+		if (Calculator::isPrime(coprimoN) && Calculator::gcd(coprimoN,phi).compareTo(1) == 0) {
+			break;
+		}
 
-	cout<<"coprimo =  "<<coprimo.toString()<<endl;
+		coprimoN = Calculator::add(coprimoN, BigInteger(1));
+	}
+
+	cout<<"coprimo =  "<<coprimoN.toString()<<endl;
 	/**
 	 * Calcular d = e-1 (mod φ(n))
 	 */

@@ -28,7 +28,6 @@ public:
 	void print();
 	long int asLongInt();
 	int atBackwards(int index);
-
 	/**
 	 * Variáveis de entrada
 	 */
