@@ -299,7 +299,8 @@ BigInteger Calculator::multiplePrecisionDivision(BigInteger x, BigInteger y)
      * posição do quociente, para casos onde ela é 1 ou 2 maior
      * que o valor correto.
      */
-		while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1]) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
+    int y1 = (int)y.number.size() > 1 ? y.number[1] : 0;
+		while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y1) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
 		{
       q.number[_qs - (i - _t - 1)]--;
 		}
@@ -392,11 +393,12 @@ BigInteger Calculator::divide(BigInteger x, BigInteger y, BigInteger& remainder)
       q.number[_qs - (i - _t - 1)] = floor(((x.atBackwards(i)*10) + x.atBackwards(i-1))/(float)y.number[0]);
     }
 
-    while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y.number[1]) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
+    int y1 = (int)y.number.size() > 1 ? y.number[1] : 0;
+    while (q.number[_qs - (i - _t - 1)] * ((y.number[0]*10) + y1) > (x.atBackwards(i) * 100) + (x.atBackwards(i - 1) * 10) + x.atBackwards(i - 2))
     {
       q.number[_qs - (i - _t - 1)]--;
     }
-    
+
     BigInteger a = Calculator::pow10((long int) i - _t - 1);
     BigInteger tmp1 = Calculator::mult(a, y);
 
