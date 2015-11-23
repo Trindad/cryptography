@@ -166,7 +166,7 @@ BigInteger Calculator::pow(BigInteger x, BigInteger n, BigInteger m)
   BigInteger y(1);
 
   x = Calculator::mod(x,m);
-  cout<<" n = "<<n.toString()<<" "<<endl; 
+
   while (n.compareTo(BigInteger(0)) > 0) {
     
     if (Calculator::mod(n,BigInteger(2)).compareTo(BigInteger(1)) == 0)
@@ -175,14 +175,11 @@ BigInteger Calculator::pow(BigInteger x, BigInteger n, BigInteger m)
     }
 
     x = Calculator::mod(Calculator::mult(x, x),m);
-    cout<<" *n = "<<n.toString()<<" "<<endl; 
 
     n = Calculator::divide(n,BigInteger(2));
-    cout<<" n = "<<n.toString()<<" "<<endl; 
     n.clean();
   }
 
-  cout<<" Y = "<<y.toString()<<endl;
   return y;
 }
 
@@ -532,4 +529,16 @@ BigInteger Calculator::inverse(BigInteger a, BigInteger n) {
 	}
 
 	return t;
+}
+
+BigInteger Calculator::gcd(BigInteger a, BigInteger b)
+{
+  while(b.compareTo(0) != 0)
+  {
+    BigInteger t = b;
+    b = Calculator::mod(a,b);
+    a = t;
+  }
+
+  return a; 
 }
