@@ -18,4 +18,5 @@ public:
   static BigInteger modPow(BigInteger base, BigInteger exponent, BigInteger modulo);
   static BigInteger pow(BigInteger base, long int exponent,BigInteger);
   static BigInteger pow10(long int exponent);
+  static BigInteger pow(BigInteger x, BigInteger n, BigInteger m);
 };

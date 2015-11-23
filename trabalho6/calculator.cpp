@@ -161,6 +161,31 @@ BigInteger Calculator::pow(BigInteger x, long int n, BigInteger m)
   return y;
 }
 
+BigInteger Calculator::pow(BigInteger x, BigInteger n, BigInteger m)
+{
+  BigInteger y(1);
+
+  x = Calculator::mod(x,m);
+  cout<<" n = "<<n.toString()<<" "<<endl; 
+  while (n.compareTo(BigInteger(0)) > 0) {
+    
+    if (Calculator::mod(n,BigInteger(2)).compareTo(BigInteger(1)) == 0)
+    {
+      y = Calculator::mod( Calculator::mult(x, y), m );
+    }
+
+    x = Calculator::mod(Calculator::mult(x, x),m);
+    cout<<" *n = "<<n.toString()<<" "<<endl; 
+
+    n = Calculator::divide(n,BigInteger(2));
+    cout<<" n = "<<n.toString()<<" "<<endl; 
+    n.clean();
+  }
+
+  cout<<" Y = "<<y.toString()<<endl;
+  return y;
+}
+
 BigInteger Calculator::pow10(long int n)
 {
   BigInteger y;
@@ -331,9 +356,9 @@ BigInteger Calculator::divide(BigInteger x, BigInteger y, BigInteger& remainder)
     return x;
   }
 
-  if (x.compareTo(0) > 0 && x.compareTo(y) < 0) {
-    return x;
-  }
+  // if (x.compareTo(0) > 0 && x.compareTo(y) < 0) {
+  //   return x;
+  // }
 
   int n = _n - _t;
 
@@ -371,6 +396,7 @@ BigInteger Calculator::divide(BigInteger x, BigInteger y, BigInteger& remainder)
     {
       q.number[_qs - (i - _t - 1)]--;
     }
+    
     BigInteger a = Calculator::pow10((long int) i - _t - 1);
     BigInteger tmp1 = Calculator::mult(a, y);
 
