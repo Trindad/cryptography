@@ -28,7 +28,6 @@ int main(int argc, char const *argv[])
 
 	p.read();
 	q.read();
-	e.read();
 	x.read();
 
 	n = Calculator::mult(p,q);// ( p * q ) = n
@@ -43,7 +42,7 @@ int main(int argc, char const *argv[])
 	BigInteger q1 = Calculator::sub(q,t);
 
 	BigInteger phi = Calculator::mult(p1,q1);
-	cout << phi.toString() << endl;
+	// cout << phi.toString() << endl;
 	BigInteger coprimoN(2);
 	/**
 	 * Obtêm número e que é um número coprimo
@@ -55,8 +54,10 @@ int main(int argc, char const *argv[])
 
 		coprimoN = Calculator::add(coprimoN, BigInteger(1));
 	}
+	
+	e = coprimoN;
 
-	cout<<"coprimo =  "<<coprimoN.toString()<<endl;
+	// cout<<"coprimo =  "<<coprimoN.toString()<<endl;
 	/**
 	 * Calcular d = e-1 (mod φ(n))
 	 */
@@ -65,9 +66,9 @@ int main(int argc, char const *argv[])
 	/**
 	 * Resultado: x^ed = x (mod N)
 	 */
-	BigInteger r= Calculator::pow(x,Calculator::mult(e,d),n);
+	BigInteger r = Calculator::pow(x,Calculator::mult(e,d),n);
 
-	cout<<"n = "<<n.toString()<<" d = "<<d.toString()<<" e = "<<e.toString()<<" "<<r.toString()<<endl;
+	cout<<" d = "<<d.toString()<<" e = "<<e.toString()<<" resultado = "<<r.toString()<<endl;
 
 	return 0;
 }
